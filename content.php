@@ -4,117 +4,88 @@
 
    <div id="main" class="eight columns">
 
+<?php
+if(isset($_GET['gonderi'])){
+	?>
+   <?php
+		$id = $_GET['gonderi'];
+           $query = $db->query("SELECT * FROM gonderiler WHERE id=$id", PDO::FETCH_ASSOC);
+                     if ( $query->rowCount() ){
+                     foreach( $query as $row ){
+                     if($row['baslik']!=''){
+            ?>
      <article class="entry">
 
        <header class="entry-header">
 
          <h2 class="entry-title">
-           <a href="single.html" title="">Hey, We Love Open Sans!</a>
+
+           <a href="#" title=""><?php echo $row['baslik'] ?></a>
          </h2>
 
          <div class="entry-meta">
            <ul>
-             <li>July 12, 2014</li>
+             <li><?php  echo $row['zaman'] ?></li>
              <span class="meta-sep">&bull;</span>
              <li><a href="#" title="" rel="category tag">Ghost</a></li>
              <span class="meta-sep">&bull;</span>
-             <li>John Doe</li>
+             <li><?php echo $row['yazar'] ?></li>
            </ul>
          </div>
 
        </header>
 
        <div class="entry-content">
-         <p>Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco magna amet magna cupidatat qui labore cillum sit in tempor veniam consequat non laborum adipisicing aliqua ea nisi sint ut quis proident ullamco ut dolore culpa occaecat ut laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.</p>
+
+       <p><?php echo $row['icerik']; ?></p>
+
        </div>
 
-     </article> <!-- end entry -->
 
+     </article> <!-- end entry -->
+<?php } } } ?>
+   <?php
+}else{
+?>
+   <?php
+           $query = $db->query("SELECT * FROM gonderiler", PDO::FETCH_ASSOC);
+                     if ( $query->rowCount() ){
+                     foreach( $query as $row ){
+                     if($row['baslik']!=''){
+            ?>
      <article class="entry">
 
        <header class="entry-header">
 
          <h2 class="entry-title">
-           <a href="single.html" title="">We All Love Good Typography.</a>
+
+           <a href="#" title=""><?php echo $row['baslik'] ?></a>
          </h2>
 
          <div class="entry-meta">
            <ul>
-             <li>July 11, 2014</li>
+             <li><?php  echo $row['zaman'] ?></li>
              <span class="meta-sep">&bull;</span>
-             <li>
-               <a href="#" title="" rel="category tag">Wordpress</a>,
-               <a href="#" title="" rel="category tag">Ghost</a>
-             </li>
+             <li><a href="#" title="" rel="category tag">Ghost</a></li>
              <span class="meta-sep">&bull;</span>
-             <li>Jane Doe</li>
+             <li><?php echo $row['yazar'] ?></li>
            </ul>
          </div>
 
        </header>
 
        <div class="entry-content">
-         <p>Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco magna amet magna cupidatat qui labore cillum sit in tempor veniam consequat non laborum adipisicing aliqua ea nisi sint ut quis proident ullamco ut dolore culpa occaecat ut laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in.</p>
+
+       <p><?php echo( strlen($row['icerik'])<=200 ? $row['icerik'] : mb_substr($row['icerik'],200).'...' ); ?> <a href="index.php?gonderi=<?=$row['id']?>">Devamını oku..</a></p>
+
        </div>
 
-     </article> <!-- end entry -->
-
-     <article class="entry">
-
-       <header class="entry-header">
-
-         <h2 class="entry-title">
-           <a href="single.html" title="">White Space Everywhere.</a>
-         </h2>
-
-         <div class="entry-meta">
-           <ul>
-             <li>July 10, 2014</li>
-             <span class="meta-sep">&bull;</span>
-             <li>
-               <a href="#" title="" rel="category tag">Joomla</a>,
-               <a href="#" title="" rel="category tag">Drupal</a>
-             </li>
-             <span class="meta-sep">&bull;</span>
-             <li>Naruto Uzumaki</li>
-           </ul>
-         </div>
-
-       </header>
-
-       <div class="entry-content">
-         <p>Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco magna amet magna cupidatat qui labore cillum sit in tempor veniam consequat non laborum adipisicing aliqua ea nisi sint ut quis proident ullamco ut dolore culpa occaecat ut laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.</p>
-       </div>
 
      </article> <!-- end entry -->
+<?php } } } ?>
+<?php }
+?>
 
-     <article class="entry">
-
-       <header class="entry-header">
-
-         <h2 class="entry-title">
-           <a href="single.html" title="">Simple And Minimalist Designs.</a>
-         </h2>
-
-         <div class="entry-meta">
-           <ul>
-             <li>July 09, 2014</li>
-             <span class="meta-sep">&bull;</span>
-             <li>
-               <a href="#" title="" rel="category tag">Ghost</a>
-             </li>
-             <span class="meta-sep">&bull;</span>
-             <li>Naruto Uzumaki</li>
-           </ul>
-         </div>
-
-       </header>
-
-       <div class="entry-content">
-         <p>Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco magna amet magna cupidatat qui labore cillum sit in tempor veniam consequat non laborum adipisicing aliqua ea nisi sint ut quis proident ullamco ut dolore culpa occaecat ut laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.</p>
-       </div>
-
-     </article> <!-- end entry -->
 
 
    </div> <!-- end main -->

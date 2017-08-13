@@ -1,25 +1,24 @@
 <footer>
    <div class="row">
      <?php
-     $query = $db->query("SELECT * FROM website", PDO::FETCH_ASSOC);
+     $query = $db->query("SELECT * FROM sosyal", PDO::FETCH_ASSOC);
                if ( $query->rowCount() ){
                foreach( $query as $row ){
       ?>
      <div class="twelve columns">
      <ul class="social-links">
 
-            <li><a  target="_blank" href="http://www.facebok.com/<?php echo $row['site_fb']?>"><i class="fa fa-facebook"></i></a></li>
-            <li><a target="_blank" href="https://www.twitter.com/<?php echo $row['site_tw']?>"><i class="fa fa-twitter"></i></a></li>
-            <li><a target="_blank" href="https://plus.google.com/<?php echo $row['site_gp']?>"><i class="fa fa-google-plus"></i></a></li>
-            <li><a target="_blank" href="https://www.github.com/<?php echo $row['site_git']?>"><i class="fa fa-github-square"></i></a></li>
-            <li><a target="_blank" href="https://www.instagram.com/<?php echo $row['site_ins']?>"><i class="fa fa-instagram"></i></a></li>
-            <li><a  target="_blank" href="https://www.flickr.com/<?php echo $row['site_flickr']?>"><i class="fa fa-flickr"></i></a></li>
-            <li><a target="_blank" href="https://www.skype.com/tr/
-<?php echo $row['site_skype']?>"><i class="fa fa-skype"></i></a></li>
+            <li><a  target="_blank" href="<?php echo $row['facebook']?>"><i class="fa fa-facebook"></i></a></li>
+            <li><a target="_blank" href="<?php echo $row['twitter']?>"><i class="fa fa-twitter"></i></a></li>
+            <li><a target="_blank" href="<?php echo $row['g_plus']?>"><i class="fa fa-google-plus"></i></a></li>
+            <li><a target="_blank" href="<?php echo $row['github']?>"><i class="fa fa-github-square"></i></a></li>
+            <li><a target="_blank" href="<?php echo $row['instagram']?>"><i class="fa fa-instagram"></i></a></li>
+            <li><a  target="_blank" href="<?php echo $row['flickr']?>"><i class="fa fa-flickr"></i></a></li>
+            <li><a target="_blank" href="<?php echo $row['skype']?>"><i class="fa fa-skype"></i></a></li>
          </ul>
-
+<?php } } ?>
      </div>
-     <?php } } ?>
+
 
 
       <div class="six columns info">
@@ -32,13 +31,18 @@
 
          <h3><?php echo $row['site_basligi'] ?></h3>
 <?php } } ?>
-         <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.
-         Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem
-         nibh id elit.
-         </p>
 
-         <p>Lorem ipsum Sed nulla deserunt voluptate elit occaecat culpa cupidatat sit irure sint
-         sint incididunt cupidatat esse in Ut sed commodo tempor consequat culpa fugiat incididunt.</p>
+
+
+            <?php
+            $query = $db->query("SELECT * FROM  hakkında", PDO::FETCH_ASSOC);
+                      if ( $query->rowCount() ){
+                      foreach( $query as $row ){
+             ?>
+         <p><?php echo $row['yazi'] ?> </p>
+         <?php } } ?>
+
+
 
       </div>
 
@@ -46,29 +50,45 @@
       <div class="four columns">
 
          <h3>Photostream</h3>
+         <?php function instagram()
+            {
+$username = 'gameofthronesnotofficial';
+$json = file_get_contents('https://www.instagram.com/'.$username.'/media/');
+$instagram_feed_data = json_decode($json, true);
+if (isset($instagram_feed_data['items'])) {
+    return $instagram_feed_data['items'];
+        ?>
+        <?php
+    }
+}
+?>
 
          <ul class="photostream group">
-            <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-            <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-            <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-            <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-            <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-            <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-            <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-            <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-         </ul>
+           <?php foreach (instagram() as $item) {
+         $link = $item['link'];
+         $img_url = $item['images']['low_resolution']['url'];
+         $caption = isset($item['caption']) ? $item['caption']['text'] : '';
+         echo "<li><a href='$link'><img src='$img_url'></a></li>";
+         } ?>
 
       </div>
 
       <div class="two columns">
-         <h3 class="social">Navigate</h3>
+         <h3 class="social">Site Navigasyonu</h3>
+         <?php
+            $sorgu = $db->query("SELECT * FROM menu",PDO::FETCH_ASSOC);
+            if($sorgu -> rowCount())
+            {
+               foreach ($sorgu as $row) {
+ ?>
 
          <ul class="navigate group">
-            <li><a href="index.php">Anasayfa</a></li>
-            <li><a href="hakkinda.php">Hakkında</a></li>
-            <li><a href="iletisim.php">İletisim</a></li>
-            <li><a href="galeri.php">Galeri</a></li>
+            <li><a href="index.php"><?php echo $row['anasayfa'] ?></a></li>
+            <li><a href="hakkinda.php"><?php echo $row['hakkında'] ?></a></li>
+            <li><a href="iletisim.php"><?php echo $row['iletisim'] ?></a></li>
+            <li><a href="galeri.php"><?php echo $row['galeri'] ?></a></li>
          </ul>
+         <?php } } ?>
       </div>
 
       <p class="copyright">&copy; Copyright 2017 Mustafa BIKMAZ. &nbsp; Design by <a title="Styleshout" href="http://www.styleshout.com/">Styleshout</a>.</p>

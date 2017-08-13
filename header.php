@@ -25,6 +25,8 @@
 	<link rel="stylesheet" href="css/layout.css">
 	<link rel="stylesheet" href="css/media-queries.css">
 
+
+
    <!-- Script
    ================================================== -->
 	<script src="js/modernizr.js"></script>
@@ -65,13 +67,21 @@
 		   <a class="mobile-btn" href="#" title="Hide navigation">Hide Menu</a>
 
 	   	<div class="row">
+        <?php
+        $query = $db->query("SELECT * FROM menu", PDO::FETCH_ASSOC);
+                  if ( $query->rowCount() ){
+                  foreach( $query as $row ){
+
+         ?>
 
 			   	<ul id="nav" class="nav">
-			      	<li class="current"><a href="index.php">Anasayfa</a></li>
-			      	<li class="has-children"><a href="hakkinda.php">Hakkında</a></li>
-	               <li><a href="iletisim.php">iletisim</a></li>
-	               <li><a href="galeri.php">Galeri</a></li>
+
+			      	<li class="current"><a href="index.php"><?php echo $row['anasayfa'] ?></a></li>
+			      	<li class="has-children"><a href="hakkinda.php"><?php echo $row['hakkında'] ?></a></li>
+	               <li><a href="iletisim.php"><?php echo $row['iletisim'] ?></a></li>
+	               <li><a href="galeri.php"><?php echo $row['galeri'] ?></a></li>
 			   	</ul> <!-- end #nav -->
+<?php } } ?>
 	   	</div>
 
 	   </nav> <!-- end #nav-wrap -->
